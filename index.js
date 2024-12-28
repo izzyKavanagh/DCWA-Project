@@ -47,6 +47,21 @@ app.post("/students/add", (req,res) => {
         });
 })
 
+app.post("/students/checkSid", (req, res) => {
+        const sid = req.body.sid;
+
+    // Use the DAO function to check if the student with the given SID exists
+    mySqlDao.getStudentBySID(sid)
+        .then(() => {
+            // If no error occurs, it means the SID is already taken
+            res.send("taken"); // Respond with "taken"
+        })
+        .catch((error) => {
+            // If error occurs, it means the SID is not taken
+            res.send("not taken"); // Respond with "not taken"
+        });
+});
+
 app.get("/students/edit/:sid", (req,res) => {
     let sid = req.params.sid;
     mySqlDao.getStudentBySID(sid)
