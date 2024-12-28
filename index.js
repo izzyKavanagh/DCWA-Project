@@ -22,3 +22,7 @@ app.get("/students", (req,res) => {
             res.send(error)
         })
 })
+
+app.get("/students/add", (req,res) => {
+    res.render("addStudent");
+})
