@@ -10,9 +10,13 @@ app.listen(3004, () => {
 })
 
 app.get("/", (req,res) => {
+    res.render("homePage");
+})
+
+app.get("/students", (req,res) => {
     mySqlDao.getStudents()
         .then((data) => {
-            res.render(data)
+            res.render("student", {"students":data})
         })
         .catch((error)=> {
             res.send(error)
