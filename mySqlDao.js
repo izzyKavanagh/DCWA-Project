@@ -43,26 +43,42 @@ var getStudentBySID = function (sid) {
                 reject(err); 
             });
     });
-  };
+};
 
-  const updateStudent = (sid, updatedStudent) => {
+const updateStudent = (sid, updatedStudent) => {
+return new Promise((resolve, reject) => {
+    let query = "UPDATE student SET name = ?, age = ? WHERE sid = ?";
+    let params = [updatedStudent.name, updatedStudent.age, sid];
+
+    console.log("Executing query:", query, params);
+
+    pool.query(query, params) 
+        .then((results) => {
+            if (results.affectedRows === 0) {
+                return reject(new Error("Student ID not found."));
+            }
+            resolve();
+        })
+        .catch((error) => {
+            reject(error);
+        });
+    });
+};
+
+const addStudent = (newStudent) => {
     return new Promise((resolve, reject) => {
-        let query = "UPDATE student SET name = ?, age = ? WHERE sid = ?";
-        let params = [updatedStudent.name, updatedStudent.age, sid];
+        const query = "INSERT INTO student (sid, name, age) VALUES (?, ?, ?)";
+        const params = [newStudent.sid, newStudent.name, newStudent.age];
 
-        console.log("Executing query:", query, params);
-
-        pool.query(query, params) 
+        pool.query(query, params)
             .then((results) => {
-                if (results.affectedRows === 0) {
-                    return reject(new Error("Student ID not found."));
-                }
-                resolve();
+                resolve(results);
             })
-            .catch((error) => {
-                reject(error);
+            .catch((err) => {
+                reject(err);
             });
     });
 };
 
-module.exports = {getStudents, getStudentBySID, updateStudent}
+
+module.exports = {getStudents, getStudentBySID, updateStudent, addStudent}
