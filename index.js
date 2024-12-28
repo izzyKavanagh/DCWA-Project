@@ -29,6 +29,24 @@ app.get("/students/add", (req,res) => {
     res.render("addStudent");
 })
 
+app.post("/students/add", (req,res) => {
+    let newStudent = {
+        sid: req.body.sid,
+        name: req.body.name, 
+        age: parseInt(req.body.age, 10)
+    }
+    
+    console.log("New Student: ", newStudent);
+
+    mySqlDao.addStudent(newStudent)
+        .then(() => {
+            res.redirect("/students");
+        })
+        .catch((error) => {
+            res.send(error);
+        });
+})
+
 app.get("/students/edit/:sid", (req,res) => {
     let sid = req.params.sid;
     mySqlDao.getStudentBySID(sid)
@@ -47,6 +65,7 @@ app.post("/students/edit/:sid", (req,res) => {
         name: req.body.name, 
         age: parseInt(req.body.age, 10)
     }
+    
     console.log("Updated Student: ", updatedStudent);
 
     mySqlDao.updateStudent(sid, updatedStudent)
