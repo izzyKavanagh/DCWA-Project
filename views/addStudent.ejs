@@ -23,6 +23,7 @@
         <script>
 
             document.getElementById("editStudentForm").addEventListener("submit", function(event) {
+                // Hide all error messages initially
                 document.getElementById("sidTakenError").style.display = "none";
                 document.getElementById("sidLengthError").style.display = "none";
                 document.getElementById("nameLengthError").style.display = "none";
@@ -33,6 +34,7 @@
                 let name = document.getElementById("name").value.trim();
                 let age = document.getElementById("age").value.trim();
 
+                // Basic validations
                 if (sid.length < 4) {
                     document.getElementById("sidLengthError").style.display = "list-item";  
                     isValid = false;
@@ -49,9 +51,35 @@
                 }
 
                 if (!isValid) {
-                    event.preventDefault();                  
+                    event.preventDefault();
+                    return;
                 }
-            })
+
+                // Check SID availability using AJAX
+                let xhr = new XMLHttpRequest();
+                xhr.open("POST", "/students/checkSid", true);
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+                xhr.onload = function() {
+                    if (xhr.status === 200 && xhr.responseText === "taken") {
+                        // Show SID taken error and prevent submission
+                        document.getElementById("sidTakenError").style.display = "list-item";
+                        event.preventDefault();
+                    } else if (xhr.status === 200 && xhr.responseText === "not taken") {
+                        // Allow form submission if SID is not taken
+                        document.getElementById("editStudentForm").submit();
+                    }
+                };
+
+                xhr.onerror = function() {
+                    alert("An error occurred while checking the SID.");
+                    event.preventDefault();
+                };
+
+                // Prevent default form submission and wait for AJAX response
+                event.preventDefault();
+                xhr.send("sid=" + encodeURIComponent(sid));
+            });
 
         </script>
 
