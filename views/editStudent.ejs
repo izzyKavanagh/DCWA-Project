@@ -2,15 +2,51 @@
     <body>
         <a href="/">Home</a>
         <h1>Update Student</h1>
-        <form action="/students/edit/<%= student.sid %>" method="POST">
+
+        <ul id="nameValidation"  style="list-style-type: disc; display: none;">
+            <li >Name must be longer than 2 characters.</li>
+        </ul>
+        <ul id="ageValidation"  style="list-style-type: disc; display: none;">
+            <li >Age must be greater than 18.</li>
+        </ul>
+
+        <form  id="editStudentForm" action="/students/edit/<%= student.sid %>" method="POST">
             <label>ID:</label>
             <input type="text" name="sid" value="<%= student.sid %>" readonly><br>
             <label>Name</label>
-            <input type="text" name="name" value="<%= student.name %>"><br>
-            <label>Title</label>
-            <input type="text" name="age" value="<%= student.age %>"><br>
-            <label>Salary</label>
+            <input id="name" type="text" name="name" value="<%= student.name %>"><br>
+            <label>Age</label>
+            <input id="age" type="text" name="age" value="<%= student.age %>"><br>
             <input type="submit" value="Update">
         </form>
+
+        <script>
+
+            document.getElementById("editStudentForm").addEventListener("submit", function(event) {
+                let isValid = true;
+                let name = document.getElementById("name").value.trim();
+                let age = document.getElementById("age").value.trim();
+
+                if (name.length <= 2) {
+                    document.getElementById("nameValidation").style.display = "block";  
+                    isValid = false;
+                }
+                else {
+                    document.getElementById("nameValidation").style.display = "none"; 
+                }
+                
+                if (isNaN(age) || age <= 18) {
+                    document.getElementById("ageValidation").style.display = "block"; 
+                    isValid = false;
+                }
+                else {
+                    document.getElementById("ageValidation").style.display = "none";  
+                }
+                if (!isValid) {
+                    event.preventDefault();  
+                }
+            })
+
+        </script>
     </body>
 </html>
