@@ -2,14 +2,58 @@
     <body>
         <a href="/">Home</a>
         <h1>Add Student</h1>
-        <form action="/students/add" method="POST">
+
+        <ul id="validationList" style="list-style-type: disc;">
+            <li id="sidTakenError" style="display: none;">SID already taken.</li>
+            <li id="sidLengthError" style="display: none;">SID must be at least 4 characters.</li>
+            <li id="nameLengthError" style="display: none;">Name must be at least 2 characters.</li>
+            <li id="ageError" style="display: none;">Age must be at least 18.</li>
+        </ul>
+
+        <form id="editStudentForm" action="/students/add" method="POST">
             <label>ID:</label>
-            <input type="text" name="sid"><br>
+            <input id="sid" type="text" name="sid"><br>
             <label>Name</label>
-            <input type="text" name="name"><br>
+            <input id="name" type="text" name="name"><br>
             <label>Age</label>
-            <input type="text" name="age"><br>
+            <input id="age" type="text" name="age"><br>
             <input type="submit" value="Add Student">
         </form>
+
+        <script>
+
+            document.getElementById("editStudentForm").addEventListener("submit", function(event) {
+                document.getElementById("sidTakenError").style.display = "none";
+                document.getElementById("sidLengthError").style.display = "none";
+                document.getElementById("nameLengthError").style.display = "none";
+                document.getElementById("ageError").style.display = "none";
+
+                let isValid = true;
+                let sid = document.getElementById("sid").value.trim();
+                let name = document.getElementById("name").value.trim();
+                let age = document.getElementById("age").value.trim();
+
+                if (sid.length < 4) {
+                    document.getElementById("sidLengthError").style.display = "list-item";  
+                    isValid = false;
+                }
+
+                if (name.length <= 2) {
+                    document.getElementById("nameLengthError").style.display = "list-item";  
+                    isValid = false;
+                }
+                
+                if (isNaN(age) || age < 18) {
+                    document.getElementById("ageError").style.display = "list-item"; 
+                    isValid = false;
+                }
+
+                if (!isValid) {
+                    event.preventDefault();                  
+                }
+            })
+
+        </script>
+
     </body>
 </html>
