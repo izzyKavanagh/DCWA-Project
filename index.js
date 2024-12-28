@@ -26,3 +26,7 @@ app.get("/students", (req,res) => {
 app.get("/students/add", (req,res) => {
     res.render("addStudent");
 })
+
+app.get("/students/edit/:sid", (req,res) => {
+    res.render("editStudent");
+})
