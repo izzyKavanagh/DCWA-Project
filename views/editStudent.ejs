@@ -2,15 +2,15 @@
     <body>
         <a href="/">Home</a>
         <h1>Update Student</h1>
-        <form action="/student/edit/:id" method="POST">
+        <form action="/students/edit/<%= student.sid %>" method="POST">
             <label>ID:</label>
-            <input type="text" name="sid"><br>
+            <input type="text" name="sid" value="<%= student.sid %>" readonly><br>
             <label>Name</label>
-            <input type="text" name="name"><br>
+            <input type="text" name="name" value="<%= student.name %>"><br>
             <label>Title</label>
-            <input type="text" name="age"><br>
+            <input type="text" name="age" value="<%= student.age %>"><br>
             <label>Salary</label>
-            <input type="submit" value="OK">
+            <input type="submit" value="Update">
         </form>
     </body>
 </html>
