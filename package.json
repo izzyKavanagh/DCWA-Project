@@ -12,6 +12,7 @@
   "dependencies": {
     "express": "^4.21.2",
     "git": "^0.1.5",
-    "nodemon": "^3.1.9"
+    "nodemon": "^3.1.9",
+    "promise-mysql": "^5.2.0"
   }
 }
