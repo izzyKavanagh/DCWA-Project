@@ -40,3 +40,20 @@ app.get("/students/edit/:sid", (req,res) => {
             res.send(error);
         });
 })
+
+app.post("/students/edit/:sid", (req,res) => {
+    let sid = req.params.sid;
+    let updatedStudent = {
+        name: req.body.name, 
+        age: parseInt(req.body.age, 10)
+    }
+    console.log("Updated Student: ", updatedStudent);
+
+    mySqlDao.updateStudent(sid, updatedStudent)
+        .then(() => {
+            res.redirect("/students");
+        })
+        .catch((error) => {
+            res.send(error);
+        });
+})
