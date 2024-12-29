@@ -1,0 +1,38 @@
+<html>
+    <head>
+        <title>Grades</title>
+        <style>
+            /* CSS styles for the table */
+            table {
+                border-spacing: 2px;
+            }
+
+            table, th, td {
+                border: 1px solid black;
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Grades</h1>
+        <a href="/">Home</a>
+        <table>
+            <thead>
+                <tr>
+                    <th>Student Name</th>
+                    <th>Module Name</th>
+                    <th>Grade</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% grades.forEach((grade) => { %>
+                    <tr>
+                        <td><%= grade.studentName %></td>
+                        <td><%= grade.moduleName %></td>
+                        <td><%= grade.studentGrade %></td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </body>
+</html>
