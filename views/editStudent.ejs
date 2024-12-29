@@ -4,8 +4,8 @@
         <h1>Update Student</h1>
 
         <ul style="list-style-type: disc;">
-            <li id="nameValidation" style="display: none;">Name must be longer than 2 characters.</li>
-            <li id="ageValidation" style="display: none;">Age must be greater than 18.</li>
+            <li id="nameValidation" style="display: none;">Student name must be at least 2 characters.</li>
+            <li id="ageValidation" style="display: none;">Student age must be at least 18.</li>
         </ul>
 
         <form  id="editStudentForm" action="/students/edit/<%= student.sid %>" method="POST">
@@ -33,7 +33,7 @@
                     isValid = false;
                 }
                 
-                if (isNaN(age) || age <= 18) {
+                if (isNaN(age) || age < 18) {
                     document.getElementById("ageValidation").style.display = "list-item"; 
                     isValid = false;
                 }
