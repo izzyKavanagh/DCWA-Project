@@ -80,5 +80,26 @@ const addStudent = (newStudent) => {
     });
 };
 
+const getGrades = () => {
+    return new Promise((resolve, reject) => {
+        const query = `
+            SELECT student.name AS studentName, 
+                   module.name AS moduleName, 
+                   grade.grade AS studentGrade
+            FROM student
+            LEFT JOIN grade ON student.sid = grade.sid
+            LEFT JOIN module ON grade.mid = module.mid
+            ORDER BY student.name ASC, grade.grade DESC;  -- Sort by name alphabetically, then by grade descending
+        `;
 
-module.exports = {getStudents, getStudentBySID, updateStudent, addStudent}
+        pool.query(query)
+            .then((results) => {
+                resolve(results);
+            })
+            .catch((error) => {
+                reject(error);
+            });
+    });
+};
+
+module.exports = {getStudents, getStudentBySID, updateStudent, addStudent, getGrades}
