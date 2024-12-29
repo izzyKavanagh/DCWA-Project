@@ -104,5 +104,11 @@ app.get('/grades', (req, res) => {
 });
 
 app.get('/lecturers', (req, res) => {
-    res.render("lecturers");
+    myMongoDBDao.getLecturerDetails()
+        .then((lecturers) => {
+            res.render('lecturers', { lecturers }); // Pass the lecturers data to EJS
+        })
+        .catch((error) => {
+            res.status(500).send('Error fetching lecturers: ' + error.message);
+        });
 });
