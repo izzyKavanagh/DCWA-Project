@@ -91,3 +91,13 @@ app.post("/students/edit/:sid", (req,res) => {
             res.send(error);
         });
 })
+
+app.get('/grades', (req, res) => {
+    mySqlDao.getGrades()
+        .then((grades) => {
+            res.render('grades', { grades }); // Pass grades data to the EJS file
+        })
+        .catch((error) => {
+            res.status(500).send('Error fetching grades: ' + error.message);
+        });
+});
