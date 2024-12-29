@@ -1,9 +1,34 @@
 <html>
     <head>
-        
+        <title>Lecturers</title>
+        <style>
+            table {
+                border-spacing: 2px;
+            }
+
+            table, th, td {
+                border: 1px solid black;
+                text-align: center;
+            }
+        </style>
     </head>
     <body>
         <h1>Lecturers</h1>
         <a href="/">Home</a>
+        <table>
+            <tr>
+                <th>Lecturer ID</th>
+                <th>Name</th>
+                <th>Department ID</th>
+            </tr>
+            <% lecturers.forEach((lecturer) =>
+            { %>
+                <tr>
+                    <td><%= lecturer._id %></td>
+                    <td><%= lecturer.name %></td>
+                    <td><%= lecturer.did %> </td>
+               </tr>
+            <% }) %>
+        </table>
     </body>
 </html>
