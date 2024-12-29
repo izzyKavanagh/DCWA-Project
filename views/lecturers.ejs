@@ -2,6 +2,7 @@
     <head>
         <title>Lecturers</title>
         <style>
+            /* CSS styles for table */
             table {
                 border-spacing: 2px;
             }
@@ -14,20 +15,27 @@
     </head>
     <body>
         <h1>Lecturers</h1>
+        <!-- link to navigate to home page -->
         <a href="/">Home</a>
         <table>
             <tr>
+                <!-- col headers for lecturer id, name, department id -->
                 <th>Lecturer ID</th>
                 <th>Name</th>
                 <th>Department ID</th>
                 <th>Action</th>
             </tr>
+            <!-- loop through 'lecturers' array passed from server & render each lecturer item -->
             <% lecturers.forEach((lecturer) =>
             { %>
                 <tr>
+                    <!-- display lecturer id -->
                     <td><%= lecturer._id %></td>
+                    <!-- display lecturer name -->
                     <td><%= lecturer.name %></td>
+                    <!-- display department id -->
                     <td><%= lecturer.did %> </td>
+                    <!-- link to delete this lecturer that passes lecturer id -->
                     <td><a href="/lecturers/delete/<%= lecturer._id %>">Delete</a></td>
                </tr>
             <% }) %>

@@ -2,6 +2,7 @@
     <head>
         <title>Students</title>
         <style>
+            /* CSS styles for table */
             table {
                 border-spacing: 2px;
             }
@@ -16,23 +17,31 @@
     <body>
 
         <h1>Students</h1>
+        <!-- link to navigate to add student page -->
         <a href="/students/add">Add Student</a>
         <br>
+        <!-- link to navigate to home page -->
         <a href="/">Home</a>
 
         <table>
             <tr>
+                <!-- col headers for student id, name, age -->
                 <th>Student ID</th>
                 <th>Name</th>
                 <th>Age</th>
                 <th>Action</th>
             </tr>
+            <!-- loop through 'students' array passed from server & render each student item -->
             <% students.forEach((student) =>
             { %>
                 <tr>
+                    <!-- display stdudent id -->
                     <td><%= student.sid %></td>
+                    <!-- display student name -->
                     <td><%= student.name %></td>
+                    <!-- display student age -->
                     <td><%= student.age %> </td>
+                    <!-- link to update this student's information that passes student id -->
                     <td><a href="/students/edit/<%= student.sid %>">Update</a></td>
                 </tr>
             <% }) %>

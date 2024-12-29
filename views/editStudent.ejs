@@ -1,45 +1,58 @@
 <html>
     <body>
+        <!-- link to navigate back to the Home page -->
         <a href="/">Home</a>
         <h1>Update Student</h1>
 
+        <!-- list to display validation error messages -->
         <ul style="list-style-type: disc;">
+            <!-- hidden error messages that appear based on validation -->
             <li id="nameValidation" style="display: none;">Student name must be at least 2 characters.</li>
             <li id="ageValidation" style="display: none;">Student age must be at least 18.</li>
         </ul>
 
+        <!-- form for editing student details -->
         <form  id="editStudentForm" action="/students/edit/<%= student.sid %>" method="POST">
             <label>ID:</label>
+             <!-- read-only field displaying student ID -->
             <input type="text" name="sid" value="<%= student.sid %>" readonly><br>
             <label>Name</label>
+            <!-- input field for student's name -> prefilled with current name -->
             <input id="name" type="text" name="name" value="<%= student.name %>"><br>
             <label>Age</label>
+            <!-- input field for student's age -> prefilled with current age -->
             <input id="age" type="text" name="age" value="<%= student.age %>"><br>
+            <!-- submit button to send updated data -->
             <input type="submit" value="Update">
         </form>
 
         <script>
-
+            // add event listener to form to handle submission
             document.getElementById("editStudentForm").addEventListener("submit", function(event) {
+                // Hide all error messages initially
                 document.getElementById("nameValidation").style.display = "none";
                 document.getElementById("ageValidation").style.display = "none";
 
+                // flag to track validation status
                 let isValid = true;
+                // get input values & trim whitespace
                 let name = document.getElementById("name").value.trim();
                 let age = document.getElementById("age").value.trim();
 
-                if (name.length <= 2) {
+                // validate name length
+                if (name.length < 2) {
                     document.getElementById("nameValidation").style.display = "list-item";  
-                    isValid = false;
+                    isValid = false; // mark as invalid
                 }
-                
+                // validate age (must be a number & at least 18)
                 if (isNaN(age) || age < 18) {
                     document.getElementById("ageValidation").style.display = "list-item"; 
-                    isValid = false;
+                    isValid = false; // mark as invalid
                 }
 
+                // check if any validation failed
                 if (!isValid) {
-                    event.preventDefault();  
+                    event.preventDefault(); // prevent form submission
                 }
             })
 

@@ -2,7 +2,7 @@
     <head>
         <title>Grades</title>
         <style>
-            /* CSS styles for the table */
+            /* CSS styles for table */
             table {
                 border-spacing: 2px;
             }
@@ -15,20 +15,27 @@
     </head>
     <body>
         <h1>Grades</h1>
+        <!-- link to navigate to home page -->
         <a href="/">Home</a>
+        <!-- table to display grade data -->
         <table>
             <thead>
                 <tr>
+                    <!-- col headers for student name, module name, grade -->
                     <th>Student Name</th>
                     <th>Module Name</th>
                     <th>Grade</th>
                 </tr>
             </thead>
             <tbody>
+                <!-- loop through 'grades' array passed from server & render each grade item -->
                 <% grades.forEach((grade) => { %>
                     <tr>
+                        <!-- display student name -->
                         <td><%= grade.studentName %></td>
+                        <!-- display module name -->
                         <td><%= grade.moduleName %></td>
+                        <!-- display student grade -->
                         <td><%= grade.studentGrade %></td>
                     </tr>
                 <% }); %>
