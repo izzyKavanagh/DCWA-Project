@@ -7,3 +7,18 @@ MongoClient.connect('mongodb://127.0.0.1:27017')
 .catch((error) => {
     console.log(error.message)
 })
+
+
+const getLecturerDetails = () => {
+    return new Promise((resolve, reject) => {
+        coll.find({}).toArray()  // Fetch all lecturers
+            .then((lecturers) => {
+                resolve(lecturers);  // Resolve with lecturer data
+            })
+            .catch((error) => {
+                reject(error);  // Reject in case of error
+            });
+    });
+};
+
+module.exports = { getLecturerDetails } 
