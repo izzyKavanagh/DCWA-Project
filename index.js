@@ -102,3 +102,7 @@ app.get('/grades', (req, res) => {
             res.status(500).send('Error fetching grades: ' + error.message);
         });
 });
+
+app.get('/lecturers', (req, res) => {
+    res.render("lecturers");
+});
