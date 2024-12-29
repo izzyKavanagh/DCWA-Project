@@ -3,11 +3,9 @@
         <a href="/">Home</a>
         <h1>Update Student</h1>
 
-        <ul id="nameValidation"  style="list-style-type: disc; display: none;">
-            <li >Name must be longer than 2 characters.</li>
-        </ul>
-        <ul id="ageValidation"  style="list-style-type: disc; display: none;">
-            <li >Age must be greater than 18.</li>
+        <ul style="list-style-type: disc;">
+            <li id="nameValidation" style="display: none;">Name must be longer than 2 characters.</li>
+            <li id="ageValidation" style="display: none;">Age must be greater than 18.</li>
         </ul>
 
         <form  id="editStudentForm" action="/students/edit/<%= student.sid %>" method="POST">
@@ -23,25 +21,23 @@
         <script>
 
             document.getElementById("editStudentForm").addEventListener("submit", function(event) {
+                document.getElementById("nameValidation").style.display = "none";
+                document.getElementById("ageValidation").style.display = "none";
+
                 let isValid = true;
                 let name = document.getElementById("name").value.trim();
                 let age = document.getElementById("age").value.trim();
 
                 if (name.length <= 2) {
-                    document.getElementById("nameValidation").style.display = "block";  
+                    document.getElementById("nameValidation").style.display = "list-item";  
                     isValid = false;
-                }
-                else {
-                    document.getElementById("nameValidation").style.display = "none"; 
                 }
                 
                 if (isNaN(age) || age <= 18) {
-                    document.getElementById("ageValidation").style.display = "block"; 
+                    document.getElementById("ageValidation").style.display = "list-item"; 
                     isValid = false;
                 }
-                else {
-                    document.getElementById("ageValidation").style.display = "none";  
-                }
+
                 if (!isValid) {
                     event.preventDefault();  
                 }
