@@ -113,8 +113,8 @@ app.get('/lecturers', (req, res) => {
         });
 });
 
-app.get('/lecturers/delete/:id', (req, res) => {
-    const lecturerId = req.params.id; // Get the lecturer ID from the URL
+app.get('/lecturers/delete/:lid', (req, res) => {
+    const lecturerId = req.params.lid; // Get the lecturer ID from the URL
     myMongoDBDao.deleteLecturerById(lecturerId)
         .then(() => {
             res.redirect("/lecturers"); // Redirect to the lecturers page after deletion
