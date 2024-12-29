@@ -21,4 +21,20 @@ const getLecturerDetails = () => {
     });
 };
 
-module.exports = { getLecturerDetails } 
+const deleteLecturerById = (lecturerId) => {
+    return new Promise((resolve, reject) => {
+        coll.deleteOne({ _id: lecturerId }) // Delete the lecturer by their ID
+            .then((result) => {
+                if (result.deletedCount === 1) {
+                    resolve(); // Successfully deleted the lecturer
+                } else {
+                    reject('Lecturer not found');
+                }
+            })
+            .catch((error) => {
+                reject(error); // Handle any errors
+            });
+    });
+};
+
+module.exports = { getLecturerDetails, deleteLecturerById } 
