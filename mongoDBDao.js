@@ -11,7 +11,7 @@ MongoClient.connect('mongodb://127.0.0.1:27017')
 
 const getLecturerDetails = () => {
     return new Promise((resolve, reject) => {
-        coll.find({}).toArray()  // Fetch all lecturers
+        coll.find({}).sort({ _id: 1 }).toArray()  // Fetch all lecturers
             .then((lecturers) => {
                 resolve(lecturers);  // Resolve with lecturer data
             })
