@@ -114,12 +114,21 @@ app.get('/lecturers', (req, res) => {
 });
 
 app.get('/lecturers/delete/:lid', (req, res) => {
-    const lecturerId = req.params.lid; // Get the lecturer ID from the URL
+    const lecturerId = req.params.lid;
     myMongoDBDao.deleteLecturerById(lecturerId)
         .then(() => {
-            res.redirect("/lecturers"); // Redirect to the lecturers page after deletion
+            // Redirect to lecturers page after successful deletion
+            res.redirect('/lecturers');
         })
-        .catch((error) => {
-            res.send("Error deleting lecturer: " + error.message); // Show error message if deletion fails
+        .catch(() => {
+            // Redirect to error page with the lecturer ID as a query parameter
+            res.redirect(`/lecturersError?lid=${lecturerId}`);
         });
 });
+
+// Route to serve the error page and pass the lid dynamically
+app.get('/lecturersError', (req, res) => {
+    const lecturerId = req.query.lid; // Extract the lecturer ID from the query parameter
+    res.render('lecturersError', { lid: lecturerId }); // Pass the lecturer ID to the EJS page
+});
+
