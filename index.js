@@ -112,3 +112,14 @@ app.get('/lecturers', (req, res) => {
             res.status(500).send('Error fetching lecturers: ' + error.message);
         });
 });
+
+app.get('/lecturers/delete/:id', (req, res) => {
+    const lecturerId = req.params.id; // Get the lecturer ID from the URL
+    myMongoDBDao.deleteLecturerById(lecturerId)
+        .then(() => {
+            res.redirect("/lecturers"); // Redirect to the lecturers page after deletion
+        })
+        .catch((error) => {
+            res.send("Error deleting lecturer: " + error.message); // Show error message if deletion fails
+        });
+});
